@@ -200,7 +200,7 @@ export const CentralMoneyCharts = ({ data }) => {
               left: 20,
               bottom: 5,
             }}
-            onClick={handleChartClick}
+            onMouseDown={handleChartClick}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
             <XAxis dataKey="name" stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)' }} />
@@ -218,7 +218,6 @@ export const CentralMoneyCharts = ({ data }) => {
                   stroke="none"
                   fillOpacity={0.9} 
                   legendType="none" 
-                  onClick={handleChartClick}
                   style={{ cursor: 'pointer' }}
                 />
                 <Bar 
@@ -229,7 +228,6 @@ export const CentralMoneyCharts = ({ data }) => {
                   fillOpacity={0.9} 
                   legendType="none" 
                   radius={[4, 4, 0, 0]} 
-                  onClick={handleChartClick}
                   style={{ cursor: 'pointer' }}
                 />
               </React.Fragment>
@@ -242,8 +240,7 @@ export const CentralMoneyCharts = ({ data }) => {
               stroke="var(--accent-primary)" 
               strokeWidth={3}
               dot={{ r: 4, strokeWidth: 2 }}
-              activeDot={{ r: 6, strokeWidth: 0, onClick: handleChartClick }}
-              onClick={handleChartClick}
+              activeDot={{ r: 6, strokeWidth: 0 }}
               style={{ cursor: 'pointer' }}
             />
           </ComposedChart>
