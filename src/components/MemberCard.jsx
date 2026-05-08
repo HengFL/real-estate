@@ -6,10 +6,12 @@ export const MemberCard = ({ member, index }) => {
   const { name, totals, statuses } = member;
 
   const getProgressStyle = (percent) => {
-    if (percent >= 100) return { color: 'var(--accent-success)', bg: 'var(--gradient-success)' };
-    if (percent > 50) return { color: 'var(--accent-orange)', bg: 'var(--gradient-orange)' };
-    if (percent > 0) return { color: 'var(--accent-danger)', bg: 'var(--gradient-danger)' };
-    return { color: '#9ca3af', bg: 'none' };
+    if (percent === 0) return { color: '#4b5563', bg: 'none' };
+    if (percent > 0 && percent < 50) return { color: '#b91c1c', bg: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)' };
+    if (percent >= 50 && percent < 75) return { color: '#c2410c', bg: 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)' };
+    if (percent >= 75 && percent < 100) return { color: '#b45309', bg: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)' };
+    if (percent >= 100) return { color: '#15803d', bg: 'linear-gradient(135deg, #10b981 0%, #15803d 100%)' };
+    return { color: '#4b5563', bg: 'none' };
   };
 
   const percentPaid = totals.cost > 0 ? (totals.paid / totals.cost) * 100 : 0;
