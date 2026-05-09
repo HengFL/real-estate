@@ -21,7 +21,7 @@ function App() {
           justifyContent: 'center',
           gap: '0.5rem'
         }}>
-          <img src="/favicon.svg" alt="Logo" style={{ width: '2rem', height: '2rem' }} />
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Logo" style={{ width: '2rem', height: '2rem' }} />
           Money Pink
         </h1>
       </header>
