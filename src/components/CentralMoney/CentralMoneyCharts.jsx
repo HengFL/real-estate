@@ -209,7 +209,7 @@ export const CentralMoneyCharts = ({ data }) => {
             <Legend content={<CustomLegend />} />
             
             {/* Grouped Stacked Bars for Members */}
-            {members.map((member, index) => (
+            {members.filter(m => m.name !== 'ตัวแทน').map((member, index) => (
               <React.Fragment key={`bars-${member.name}`}>
                 <Bar 
                   dataKey={`${member.name}_collected`} 
@@ -279,13 +279,15 @@ export const CentralMoneyCharts = ({ data }) => {
               </button>
             </div>
             
-            <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', paddingRight: '2.5rem' }}>
-              <div style={{ fontSize: '0.7rem', color: 'var(--accent-success)', fontWeight: '600', marginBottom: '0.05rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>CENTRAL MONEY (เงินกลาง)</div>
-              ข้อมูลประจำ: <span style={{ color: 'var(--accent-primary)' }}>{popupData.label}</span>
-            </h3>
+            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', marginBottom: '0.5rem', paddingRight: '2.5rem' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#15803d', marginBottom: '0.1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>CENTRAL MONEY (เงินกลาง)</h3>
+              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', fontWeight: '500' }}>
+                ข้อมูลประจำ: <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>{popupData.label}</span>
+              </div>
+            </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              {members.map(m => {
+              {members.filter(m => m.name !== 'ตัวแทน').map(m => {
                 const mCalled = popupData.rowData[`${m.name}_called`];
                 const mCollected = popupData.rowData[`${m.name}_collected`];
                 const mOutstanding = popupData.rowData[`${m.name}_outstanding`];
@@ -352,24 +354,24 @@ export const CentralMoneyCharts = ({ data }) => {
                     )}
                     {mCalled > 0 && (
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.35rem', fontSize: '0.8rem', paddingLeft: '0.75rem', marginBottom: '0.25rem' }}>
-                        <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: 'var(--text-secondary)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดเรียก</span><span style={{fontWeight:'700', color:'var(--text-secondary)'}}>{formatCurrency(mCalled)}</span></div>
-                        {mCollected !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: 'var(--accent-success)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดเก็บ</span><span style={{fontWeight:'700', color:'var(--accent-success)'}}>{formatCurrency(mCollected)}</span></div>}
-                        {mOutstanding !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: mOutstanding === 0 ? '#94a3b8' : 'var(--accent-danger)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดค้าง</span><span style={{fontWeight:'700', color: mOutstanding === 0 ? '#94a3b8' : 'var(--accent-danger)'}}>{formatCurrency(mOutstanding)}</span></div>}
+                        <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: '#db2777', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดเรียก</span><span style={{fontWeight:'700', color:'#db2777'}}>{formatCurrency(mCalled)}</span></div>
+                        {mCollected !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: '#15803d', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดเก็บ</span><span style={{fontWeight:'700', color:'#15803d'}}>{formatCurrency(mCollected)}</span></div>}
+                        {mOutstanding !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: mOutstanding === 0 ? '#94a3b8' : '#dc2626', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดค้าง</span><span style={{fontWeight:'700', color: mOutstanding === 0 ? '#94a3b8' : '#dc2626'}}>{formatCurrency(mOutstanding)}</span></div>}
                       </div>
                     )}
                     {(mBorrowed > 0 || mReturned > 0) && (
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.35rem', fontSize: '0.8rem', paddingLeft: '0.75rem' }}>
                         <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}>
-                          <span style={{ color: 'var(--text-secondary)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดยืม</span>
-                          <span style={{fontWeight:'700', color:'var(--accent-secondary)'}}>{formatCurrency(mBorrowed)}</span>
+                          <span style={{ color: '#6d28d9', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดยืม</span>
+                          <span style={{fontWeight:'700', color:'#6d28d9'}}>{formatCurrency(mBorrowed)}</span>
                         </div>
                         <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}>
-                          <span style={{ color: 'var(--accent-success)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดคืน</span>
-                          <span style={{fontWeight:'700', color:'var(--accent-success)'}}>{formatCurrency(mReturned)}</span>
+                          <span style={{ color: '#1d4ed8', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดคืน</span>
+                          <span style={{fontWeight:'700', color:'#1d4ed8'}}>{formatCurrency(mReturned)}</span>
                         </div>
                         <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}>
-                          <span style={{ color: (popupData.rowData[`${m.name}_outstandingReturn`] || 0) === 0 ? '#94a3b8' : 'var(--accent-danger)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดค้างคืน</span>
-                          <span style={{fontWeight:'700', color: (popupData.rowData[`${m.name}_outstandingReturn`] || 0) === 0 ? '#94a3b8' : 'var(--accent-danger)'}}>{formatCurrency(popupData.rowData[`${m.name}_outstandingReturn`] || 0)}</span>
+                          <span style={{ color: (popupData.rowData[`${m.name}_outstandingReturn`] || 0) === 0 ? '#94a3b8' : '#ea580c', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดค้างคืน</span>
+                          <span style={{fontWeight:'700', color: (popupData.rowData[`${m.name}_outstandingReturn`] || 0) === 0 ? '#94a3b8' : '#ea580c'}}>{formatCurrency(popupData.rowData[`${m.name}_outstandingReturn`] || 0)}</span>
                         </div>
                       </div>
                     )}

@@ -275,10 +275,12 @@ export const Charts = ({ data }) => {
               </button>
             </div>
             
-            <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '0.5rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', paddingRight: '2.5rem' }}>
-              <div style={{ fontSize: '0.7rem', color: 'var(--accent-info)', fontWeight: '600', marginBottom: '0.05rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>REAL ESTATE (อสังหาริมทรัพย์)</div>
-              ข้อมูลประจำ: <span style={{ color: 'var(--accent-primary)' }}>{popupData.label}</span>
-            </h3>
+            <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', marginBottom: '0.5rem', paddingRight: '2.5rem' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#1d4ed8', marginBottom: '0.1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>REAL ESTATE (อสังหาริมทรัพย์)</h3>
+              <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', fontWeight: '500' }}>
+                ข้อมูลประจำ: <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>{popupData.label}</span>
+              </div>
+            </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               {members.map(m => {
@@ -321,9 +323,9 @@ export const Charts = ({ data }) => {
                     )}
                     {mCost > 0 && (
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.35rem', fontSize: '0.8rem', paddingLeft: '0.75rem' }}>
-                        <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: 'var(--text-secondary)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ต้นทุนรวม</span><span style={{fontWeight:'700', color:'var(--text-secondary)'}}>{formatCurrency(mCost)}</span></div>
-                        {mPaid !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: 'var(--accent-success)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดจ่าย</span><span style={{fontWeight:'700', color:'var(--accent-success)'}}>{formatCurrency(mPaid)}</span></div>}
-                        {mCalcUnpaid !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: mCalcUnpaid === 0 ? '#94a3b8' : 'var(--accent-danger)', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ค้างจ่าย</span><span style={{fontWeight:'700', color: mCalcUnpaid === 0 ? '#94a3b8' : 'var(--accent-danger)'}}>{formatCurrency(mCalcUnpaid)}</span></div>}
+                        <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: '#db2777', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ต้นทุนรวม</span><span style={{fontWeight:'700', color:'#db2777'}}>{formatCurrency(mCost)}</span></div>
+                        {mPaid !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: '#15803d', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดจ่าย</span><span style={{fontWeight:'700', color:'#15803d'}}>{formatCurrency(mPaid)}</span></div>}
+                        {mCalcUnpaid !== undefined && <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: mCalcUnpaid === 0 ? '#94a3b8' : '#dc2626', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ค้างจ่าย</span><span style={{fontWeight:'700', color: mCalcUnpaid === 0 ? '#94a3b8' : '#dc2626'}}>{formatCurrency(mCalcUnpaid)}</span></div>}
                       </div>
                     )}
                   </div>

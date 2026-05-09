@@ -52,26 +52,30 @@ export const MemberCard = ({ member, index }) => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-md">
         <div>
-          <p style={{ color: 'var(--text-primary)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ต้นทุน</p>
-          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--text-primary)' }}>{formatCurrency(totals.cost)}</p>
+          <p style={{ color: '#db2777', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ต้นทุน</p>
+          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#db2777' }}>{formatCurrency(totals.cost)}</p>
         </div>
         <div>
-          <p style={{ color: 'var(--accent-success)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดจ่าย</p>
-          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-success)' }}>{formatCurrency(totals.paid)}</p>
+          <p style={{ color: '#15803d', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดจ่าย</p>
+          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#15803d' }}>{formatCurrency(totals.paid)}</p>
         </div>
         <div>
-          <p style={{ color: totals.outstandingPay === 0 ? '#94a3b8' : 'var(--accent-danger)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ค้างจ่าย</p>
-          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingPay === 0 ? '#94a3b8' : 'var(--accent-danger)' }}>{formatCurrency(totals.outstandingPay)}</p>
+          <p style={{ color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ค้างจ่าย</p>
+          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626' }}>{formatCurrency(totals.outstandingPay)}</p>
         </div>
         {totals.income !== 0 && (
           <>
             <div>
-              <p style={{ color: 'var(--accent-warning)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>รายได้</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-warning)' }}>{formatCurrency(totals.income)}</p>
+              <p style={{ color: '#6d28d9', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>รายได้</p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#6d28d9' }}>{formatCurrency(totals.income)}</p>
             </div>
             <div>
-              <p style={{ color: 'var(--accent-secondary)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดรับ</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-secondary)' }}>{formatCurrency(totals.received)}</p>
+              <p style={{ color: '#1d4ed8', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดรับ</p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1d4ed8' }}>{formatCurrency(totals.received)}</p>
+            </div>
+            <div>
+              <p style={{ color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ค้างรับ</p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c' }}>{formatCurrency(totals.outstandingReceive)}</p>
             </div>
           </>
         )}

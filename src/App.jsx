@@ -12,29 +12,32 @@ function App() {
         <h1 style={{ 
           fontSize: '2rem', 
           fontWeight: '800', 
-          background: 'var(--gradient-primary)', 
-          WebkitBackgroundClip: 'text', 
-          WebkitTextFillColor: 'transparent',
-          margin: 0,
+          color: '#db2777',
+          marginBottom: '0.5rem',
           letterSpacing: '-0.025em',
-          textShadow: '0 4px 12px rgba(236, 72, 153, 0.15)'
+          textShadow: '0 4px 12px rgba(219, 39, 119, 0.15)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
         }}>
+          <img src="/favicon.svg" alt="Logo" style={{ width: '2rem', height: '2rem' }} />
           Money Pink
         </h1>
       </header>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--spacing-md)', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--spacing-sm)', gap: '0.5rem', flexWrap: 'wrap' }}>
         <button 
           onClick={() => setActiveTab('real-estate')}
           style={{ 
             display: 'flex', alignItems: 'center', gap: '0.5rem',
             padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-full)', fontWeight: '600', fontSize: '0.875rem',
             background: activeTab === 'real-estate' ? 'rgba(255,255,255,0.9)' : 'var(--bg-card)', 
-            color: activeTab === 'real-estate' ? 'var(--accent-info)' : 'var(--text-primary)', 
-            border: activeTab === 'real-estate' ? '1.5px solid var(--accent-info)' : '1px solid var(--border-color)', 
+            color: activeTab === 'real-estate' ? '#1d4ed8' : 'var(--text-primary)', 
+            border: activeTab === 'real-estate' ? '2px solid #1d4ed8' : '1px solid var(--border-color)', 
             cursor: 'pointer',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: activeTab === 'real-estate' ? '0 4px 12px rgba(59, 130, 246, 0.2)' : 'var(--shadow-sm)',
+            boxShadow: activeTab === 'real-estate' ? '0 4px 12px rgba(29, 78, 216, 0.2)' : 'var(--shadow-sm)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)'
           }}
@@ -48,11 +51,11 @@ function App() {
             display: 'flex', alignItems: 'center', gap: '0.5rem',
             padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-full)', fontWeight: '600', fontSize: '0.875rem',
             background: activeTab === 'central-money' ? 'rgba(255,255,255,0.9)' : 'var(--bg-card)', 
-            color: activeTab === 'central-money' ? 'var(--accent-success)' : 'var(--text-primary)', 
-            border: activeTab === 'central-money' ? '1.5px solid var(--accent-success)' : '1px solid var(--border-color)', 
+            color: activeTab === 'central-money' ? '#15803d' : 'var(--text-primary)', 
+            border: activeTab === 'central-money' ? '2px solid #15803d' : '1px solid var(--border-color)', 
             cursor: 'pointer',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: activeTab === 'central-money' ? '0 4px 12px rgba(16, 185, 129, 0.2)' : 'var(--shadow-sm)',
+            boxShadow: activeTab === 'central-money' ? '0 4px 12px rgba(21, 128, 61, 0.2)' : 'var(--shadow-sm)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)'
           }}
