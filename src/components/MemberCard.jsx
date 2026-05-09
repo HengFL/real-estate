@@ -26,6 +26,7 @@ export const MemberCard = ({ member, index }) => {
           </div>
           <h2 style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--text-primary)' }}>{name}</h2>
         </div>
+
       </div>
 
       <div style={{ marginBottom: 'var(--spacing-md)' }}>
@@ -58,6 +59,10 @@ export const MemberCard = ({ member, index }) => {
           <p style={{ color: 'var(--accent-success)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดจ่าย</p>
           <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-success)' }}>{formatCurrency(totals.paid)}</p>
         </div>
+        <div>
+          <p style={{ color: totals.outstandingPay === 0 ? '#94a3b8' : 'var(--accent-danger)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ค้างจ่าย</p>
+          <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingPay === 0 ? '#94a3b8' : 'var(--accent-danger)' }}>{formatCurrency(totals.outstandingPay)}</p>
+        </div>
         {totals.income !== 0 && (
           <>
             <div>
@@ -72,14 +77,7 @@ export const MemberCard = ({ member, index }) => {
         )}
       </div>
       
-      {totals.outstandingPay > 0 && (
-        <div style={{ marginTop: 'var(--spacing-md)', paddingTop: 'var(--spacing-sm)', borderTop: '1px dashed var(--border-color)' }}>
-           <p style={{ color: 'var(--accent-danger)', fontSize: '0.875rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <AlertTriangle size={16} />
-            ยอดค้างจ่าย: {formatCurrency(totals.outstandingPay)}
-          </p>
-        </div>
-      )}
+
     </div>
   );
 };

@@ -29,6 +29,7 @@ export const CentralMoneyMemberCard = ({ member, index }) => {
           </div>
           <h2 style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--text-primary)' }}>{name}</h2>
         </div>
+
       </div>
 
       {totals.called > 0 && (
@@ -88,6 +89,10 @@ export const CentralMoneyMemberCard = ({ member, index }) => {
               <p style={{ color: 'var(--accent-success)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดเก็บ</p>
               <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-success)' }}>{formatCurrency(totals.collected)}</p>
             </div>
+            <div>
+              <p style={{ color: totals.outstanding === 0 ? '#94a3b8' : 'var(--accent-danger)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดค้าง</p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstanding === 0 ? '#94a3b8' : 'var(--accent-danger)' }}>{formatCurrency(totals.outstanding)}</p>
+            </div>
           </>
         )}
         {totals.withdrawn !== 0 && (
@@ -106,26 +111,15 @@ export const CentralMoneyMemberCard = ({ member, index }) => {
               <p style={{ color: 'var(--accent-success)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดคืนเงิน</p>
               <p style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--accent-success)' }}>{formatCurrency(totals.returned)}</p>
             </div>
+            <div>
+              <p style={{ color: totals.outstandingReturn === 0 ? '#94a3b8' : 'var(--accent-danger)', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดค้างคืน</p>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingReturn === 0 ? '#94a3b8' : 'var(--accent-danger)' }}>{formatCurrency(totals.outstandingReturn)}</p>
+            </div>
           </>
         )}
       </div>
       
-      {(totals.outstanding > 0 || totals.outstandingReturn > 0) && (
-        <div style={{ marginTop: 'var(--spacing-md)', paddingTop: 'var(--spacing-sm)', borderTop: '1px dashed var(--border-color)' }} className="grid grid-cols-1 md:grid-cols-2 gap-md">
-          {totals.outstanding > 0 && (
-            <p style={{ color: 'var(--accent-danger)', fontSize: '0.875rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <AlertTriangle size={16} />
-              ยอดค้าง: {formatCurrency(totals.outstanding)}
-            </p>
-          )}
-          {totals.outstandingReturn > 0 && (
-            <p style={{ color: 'var(--accent-danger)', fontSize: '0.875rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <AlertTriangle size={16} />
-              ยอดค้างคืน: {formatCurrency(totals.outstandingReturn)}
-            </p>
-          )}
-        </div>
-      )}
+
     </div>
   );
 };
