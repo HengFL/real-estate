@@ -13,7 +13,7 @@ export const SummaryCards = ({ totals }) => {
             <Wallet size={20} style={{ color: '#db2777' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#db2777' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(totals.cost)}
         </div>
       </div>
@@ -26,7 +26,7 @@ export const SummaryCards = ({ totals }) => {
             <CreditCard size={20} style={{ color: '#15803d' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#15803d' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#15803d' }}>
           {formatCurrency(totals.paid)}
         </div>
       </div>
@@ -43,7 +43,7 @@ export const SummaryCards = ({ totals }) => {
             <AlertCircle size={20} style={{ color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626' }}>
           {formatCurrency(totals.outstandingPay)}
         </div>
       </div>
@@ -51,12 +51,12 @@ export const SummaryCards = ({ totals }) => {
       {/* รายได้รวม (Total Income) */}
       <div className="bg-card animate-fade-in" style={{ animationDelay: '0.4s' }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
-          <h3 style={{ color: '#6d28d9', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>รายได้ทั้งหมด</h3>
-          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(109, 40, 217, 0.1)', borderRadius: 'var(--radius-full)' }}>
-            <TrendingUp size={20} style={{ color: '#6d28d9' }} />
+          <h3 style={{ color: '#1d4ed8', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>รายได้ทั้งหมด</h3>
+          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(29, 78, 216, 0.1)', borderRadius: 'var(--radius-full)' }}>
+            <TrendingUp size={20} style={{ color: '#1d4ed8' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#6d28d9' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1d4ed8' }}>
           {formatCurrency(totals.income)}
         </div>
       </div>
@@ -64,25 +64,29 @@ export const SummaryCards = ({ totals }) => {
       {/* ยอดรับรวม (Total Received) */}
       <div className="bg-card animate-fade-in col-span-1 lg:col-span-2" style={{ animationDelay: '0.45s' }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
-          <h3 style={{ color: '#1d4ed8', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดรับทั้งหมด</h3>
-          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: 'var(--radius-full)' }}>
-            <Banknote size={20} style={{ color: '#1d4ed8' }} />
+          <h3 style={{ color: '#0e7490', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดรับทั้งหมด</h3>
+          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(14, 116, 144, 0.1)', borderRadius: 'var(--radius-full)' }}>
+            <Banknote size={20} style={{ color: '#0e7490' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1d4ed8' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#0e7490' }}>
           {formatCurrency(totals.received)}
         </div>
       </div>
       
       {/* ค้างรับรวม (Total Outstanding Receive) */}
-      <div className="bg-card animate-fade-in col-span-1 lg:col-span-2" style={{ animationDelay: '0.5s' }}>
+      <div className="bg-card animate-fade-in col-span-1 lg:col-span-2" style={{ 
+        animationDelay: '0.5s',
+        backgroundColor: totals.outstandingReceive === 0 ? 'var(--bg-card)' : '#fff7ed', 
+        borderColor: totals.outstandingReceive === 0 ? 'var(--border-color)' : '#fed7aa' 
+      }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
           <h3 style={{ color: totals.outstandingReceive === 0 ? '#64748b' : '#ea580c', opacity: 0.8, fontWeight: totals.outstandingReceive === 0 ? '600' : '500', fontSize: '0.875rem' }}>ค้างรับทั้งหมด</h3>
           <div style={{ padding: '0.5rem', backgroundColor: totals.outstandingReceive === 0 ? 'rgba(148, 163, 184, 0.1)' : 'rgba(234, 88, 12, 0.1)', borderRadius: 'var(--radius-full)' }}>
             <PiggyBank size={20} style={{ color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c' }}>
           {formatCurrency(totals.outstandingReceive)}
         </div>
       </div>

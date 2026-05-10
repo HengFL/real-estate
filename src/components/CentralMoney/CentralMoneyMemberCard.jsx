@@ -14,12 +14,6 @@ export const CentralMoneyMemberCard = ({ member, index }) => {
     return { color: '#4b5563', bg: 'none' };
   };
 
-  const percentCollected = totals.called > 0 ? (totals.collected / totals.called) * 100 : 0;
-  const collectedStyle = getProgressStyle(percentCollected);
-
-  const percentReturned = totals.borrowed > 0 ? (totals.returned / totals.borrowed) * 100 : 0;
-  const returnedStyle = getProgressStyle(percentReturned);
-
   return (
     <div className="bg-card animate-fade-in" style={{ animationDelay: `${0.1 * (index + 1)}s`, marginBottom: 'var(--spacing-md)' }}>
       <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center" style={{ marginBottom: 'var(--spacing-md)', paddingBottom: 'var(--spacing-sm)', borderBottom: '1px solid var(--border-color)', gap: 'var(--spacing-sm)' }}>
@@ -32,89 +26,43 @@ export const CentralMoneyMemberCard = ({ member, index }) => {
 
       </div>
 
-      {totals.called > 0 && (
-        <div style={{ marginBottom: 'var(--spacing-md)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-            <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: '500' }}>ความคืบหน้ายอดเก็บ</span>
-            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: collectedStyle.color }}>
-              {percentCollected.toFixed(0)}%
-            </span>
-          </div>
-          <div style={{ width: '100%', height: '6px', backgroundColor: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
-            <div 
-              style={{ 
-                height: '100%', 
-                width: `${Math.min(100, percentCollected)}%`, 
-                backgroundColor: collectedStyle.color,
-                backgroundImage: collectedStyle.bg,
-                borderRadius: 'var(--radius-full)',
-                transition: 'width 1s ease-in-out'
-              }} 
-            />
-          </div>
-        </div>
-      )}
-
-      {totals.borrowed > 0 && (
-        <div style={{ marginBottom: 'var(--spacing-md)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-            <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: '500' }}>ความคืบหน้ายอดคืนเงิน</span>
-            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: returnedStyle.color }}>
-              {percentReturned.toFixed(0)}%
-            </span>
-          </div>
-          <div style={{ width: '100%', height: '6px', backgroundColor: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
-            <div 
-              style={{ 
-                height: '100%', 
-                width: `${Math.min(100, Math.max(0, percentReturned))}%`, 
-                backgroundColor: returnedStyle.color,
-                backgroundImage: returnedStyle.bg,
-                borderRadius: 'var(--radius-full)',
-                transition: 'width 1s ease-in-out'
-              }} 
-            />
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-md">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--spacing-md)' }}>
         {totals.called !== 0 && (
           <>
             <div>
               <p style={{ color: '#db2777', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดเรียก</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#db2777' }}>{formatCurrency(totals.called)}</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: '#db2777' }}>{formatCurrency(totals.called)}</p>
             </div>
             <div>
               <p style={{ color: '#15803d', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดเก็บ</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#15803d' }}>{formatCurrency(totals.collected)}</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: '#15803d' }}>{formatCurrency(totals.collected)}</p>
             </div>
             <div>
               <p style={{ color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดค้าง</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }}>{formatCurrency(totals.outstanding)}</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }}>{formatCurrency(totals.outstanding)}</p>
             </div>
           </>
         )}
         {totals.borrowed !== 0 && (
           <>
             <div>
-              <p style={{ color: '#6d28d9', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดยืมเงิน</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#6d28d9' }}>{formatCurrency(totals.borrowed)}</p>
+              <p style={{ color: '#1d4ed8', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดยืมเงิน</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: '#1d4ed8' }}>{formatCurrency(totals.borrowed)}</p>
             </div>
             <div>
-              <p style={{ color: '#1d4ed8', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดคืนเงิน</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1d4ed8' }}>{formatCurrency(totals.returned)}</p>
+              <p style={{ color: '#0e7490', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดคืนเงิน</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: '#0e7490' }}>{formatCurrency(totals.returned)}</p>
             </div>
             <div>
               <p style={{ color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดค้างคืน</p>
-              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }}>{formatCurrency(totals.outstandingReturn)}</p>
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }}>{formatCurrency(totals.outstandingReturn)}</p>
             </div>
           </>
         )}
         {totals.withdrawn !== 0 && (
           <div>
-            <p style={{ color: '#d97706', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดเบิกเงิน</p>
-            <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#d97706' }}>{formatCurrency(totals.withdrawn)}</p>
+            <p style={{ color: '#6d28d9', opacity: 0.8, fontSize: '0.875rem', marginBottom: '0.25rem', fontWeight: '500' }}>ยอดเบิกเงิน</p>
+            <p style={{ fontSize: '1rem', fontWeight: '600', color: '#6d28d9' }}>{formatCurrency(totals.withdrawn)}</p>
           </div>
         )}
       </div>

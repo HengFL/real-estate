@@ -15,7 +15,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
             <PiggyBank size={20} style={{ color: '#db2777' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#db2777' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(balance)}
         </div>
       </div>
@@ -28,7 +28,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
             <Banknote size={20} style={{ color: '#db2777' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#db2777' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(totals.called)}
         </div>
       </div>
@@ -41,7 +41,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
             <Wallet size={20} style={{ color: '#15803d' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#15803d' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#15803d' }}>
           {formatCurrency(totals.collected)}
         </div>
       </div>
@@ -58,7 +58,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
             <AlertCircle size={20} style={{ color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }}>
           {formatCurrency(totals.outstanding)}
         </div>
       </div>
@@ -67,12 +67,12 @@ export const CentralMoneySummaryCards = ({ totals }) => {
       {/* ยอดยืมเงินทั้งหมด (Total Borrowed) */}
       <div className="bg-card animate-fade-in" style={{ animationDelay: '0.5s' }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
-          <h3 style={{ color: '#6d28d9', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดยืมเงินทั้งหมด</h3>
-          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(139, 92, 246, 0.1)', borderRadius: 'var(--radius-full)' }}>
-            <ArrowDownCircle size={20} style={{ color: '#6d28d9' }} />
+          <h3 style={{ color: '#1d4ed8', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดยืมเงินทั้งหมด</h3>
+          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(29, 78, 216, 0.1)', borderRadius: 'var(--radius-full)' }}>
+            <ArrowDownCircle size={20} style={{ color: '#1d4ed8' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#6d28d9' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1d4ed8' }}>
           {formatCurrency(totals.borrowed)}
         </div>
       </div>
@@ -80,12 +80,12 @@ export const CentralMoneySummaryCards = ({ totals }) => {
       {/* ยอดคืนเงินทั้งหมด (Total Returned) */}
       <div className="bg-card animate-fade-in" style={{ animationDelay: '0.6s' }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
-          <h3 style={{ color: '#1d4ed8', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดคืนเงินทั้งหมด</h3>
-          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: 'var(--radius-full)' }}>
-            <TrendingUp size={20} style={{ color: '#1d4ed8' }} />
+          <h3 style={{ color: '#0e7490', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดคืนเงินทั้งหมด</h3>
+          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(14, 116, 144, 0.1)', borderRadius: 'var(--radius-full)' }}>
+            <TrendingUp size={20} style={{ color: '#0e7490' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#1d4ed8' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#0e7490' }}>
           {formatCurrency(totals.returned)}
         </div>
       </div>
@@ -102,20 +102,24 @@ export const CentralMoneySummaryCards = ({ totals }) => {
             <AlertCircle size={20} style={{ color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }}>
           {formatCurrency(totals.outstandingReturn)}
         </div>
       </div>
 
       {/* ยอดเบิกเงินทั้งหมด (Total Withdrawn) */}
-      <div className="bg-card animate-fade-in" style={{ animationDelay: '0.8s' }}>
+      <div className="bg-card animate-fade-in" style={{ 
+        animationDelay: '0.8s',
+        backgroundColor: totals.withdrawn === 0 ? 'var(--bg-card)' : '#faf5ff', 
+        borderColor: totals.withdrawn === 0 ? 'var(--border-color)' : '#e9d5ff' 
+      }}>
         <div className="flex justify-between items-center" style={{ marginBottom: 'var(--spacing-sm)' }}>
-          <h3 style={{ color: '#d97706', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดเบิกเงินทั้งหมด</h3>
-          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(217, 119, 6, 0.1)', borderRadius: 'var(--radius-full)' }}>
-            <ArrowUpCircle size={20} style={{ color: '#d97706' }} />
+          <h3 style={{ color: '#6d28d9', opacity: 0.8, fontWeight: '500', fontSize: '0.875rem' }}>ยอดเบิกเงินทั้งหมด</h3>
+          <div style={{ padding: '0.5rem', backgroundColor: 'rgba(109, 40, 217, 0.1)', borderRadius: 'var(--radius-full)' }}>
+            <ArrowUpCircle size={20} style={{ color: '#6d28d9' }} />
           </div>
         </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: '700', color: '#d97706' }}>
+        <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#6d28d9' }}>
           {formatCurrency(totals.withdrawn)}
         </div>
       </div>

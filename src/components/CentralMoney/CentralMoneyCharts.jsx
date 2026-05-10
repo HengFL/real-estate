@@ -295,63 +295,12 @@ export const CentralMoneyCharts = ({ data }) => {
                 const mReturned = popupData.rowData[`${m.name}_returned`];
                 
                 if (mCalled === undefined && mCollected === undefined && mBorrowed === undefined) return null;
-                
-                const percentCollected = mCalled > 0 ? (mCollected / mCalled) * 100 : 0;
-                const collStyle = getProgressStyle(percentCollected);
-                
-                const percentReturned = mBorrowed > 0 ? (mReturned / mBorrowed) * 100 : 0;
-                const retStyle = getProgressStyle(percentReturned);
-                
-                return (
+                                return (
                   <div key={m.name} style={{ paddingBottom: '0.4rem', borderBottom: '1px dashed var(--border-color)' }}>
                     <p style={{ fontWeight: '700', color: 'var(--text-primary)', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.95rem' }}>
                       <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--text-primary)', display: 'inline-block' }}></span>
                       {m.name}
                     </p>
-                    {mCalled !== undefined && mCalled > 0 && mCollected > 0 && (
-                      <div style={{ paddingLeft: '0.75rem', marginBottom: '0.35rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1px' }}>
-                          <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', fontWeight: '500' }}>ความคืบหน้ายอดเก็บ</span>
-                          <span style={{ fontSize: '0.65rem', fontWeight: '600', color: collStyle.color }}>
-                            {percentCollected.toFixed(0)}%
-                          </span>
-                        </div>
-                        <div style={{ width: '100%', height: '5px', backgroundColor: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
-                          <div 
-                            style={{ 
-                              height: '100%', 
-                              width: `${Math.min(100, Math.max(0, percentCollected))}%`, 
-                              backgroundColor: collStyle.color,
-                              backgroundImage: collStyle.bg,
-                              borderRadius: 'var(--radius-full)',
-                              transition: 'width 1s ease-in-out'
-                            }} 
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {mBorrowed !== undefined && mBorrowed > 0 && mReturned > 0 && (
-                      <div style={{ paddingLeft: '0.75rem', marginBottom: '0.35rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1px' }}>
-                          <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', fontWeight: '500' }}>ความคืบหน้ายอดคืนเงิน</span>
-                          <span style={{ fontSize: '0.65rem', fontWeight: '600', color: retStyle.color }}>
-                            {percentReturned.toFixed(0)}%
-                          </span>
-                        </div>
-                        <div style={{ width: '100%', height: '5px', backgroundColor: '#f1f5f9', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
-                          <div 
-                            style={{ 
-                              height: '100%', 
-                              width: `${Math.min(100, Math.max(0, percentReturned))}%`, 
-                              backgroundColor: retStyle.color,
-                              backgroundImage: retStyle.bg,
-                              borderRadius: 'var(--radius-full)',
-                              transition: 'width 1s ease-in-out'
-                            }} 
-                          />
-                        </div>
-                      </div>
-                    )}
                     {mCalled > 0 && (
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.35rem', fontSize: '0.8rem', paddingLeft: '0.75rem', marginBottom: '0.25rem' }}>
                         <div style={{ background: '#f1f5f9', padding: '0.25rem 0.4rem', borderRadius: 'var(--radius-md)' }}><span style={{ color: '#db2777', fontWeight: 'bold', display: 'block', fontSize: '0.6rem', marginBottom: '1px', opacity: 0.75 }}>ยอดเรียก</span><span style={{fontWeight:'700', color:'#db2777'}}>{formatCurrency(mCalled)}</span></div>
