@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import html2canvas from 'html2canvas';
-import { Camera } from 'lucide-react';
+import { Camera, Copy } from 'lucide-react';
 import { formatCurrency } from '../utils/dataProcessor';
 
 export const Charts = ({ data }) => {
   const { timelineData, members } = data;
    const [selectedMetric, setSelectedMetric] = useState('ต้นทุน');
   const [popupData, setPopupData] = useState(null);
+  const [toast, setToast] = useState({ show: false, message: '' });
   const popupRef = useRef(null);
 
   const getProgressStyle = (percent) => {
@@ -38,6 +39,40 @@ export const Charts = ({ data }) => {
         
         // Restore buttons
         buttons.forEach(btn => btn.style.display = 'flex');
+      });
+    }
+  };
+
+  const handleCopy = () => {
+    if (popupRef.current) {
+      const buttons = popupRef.current.querySelectorAll('.no-capture');
+      buttons.forEach(btn => btn.style.display = 'none');
+
+      html2canvas(popupRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        logging: false,
+        useCORS: true
+      }).then(canvas => {
+        canvas.toBlob(blob => {
+          try {
+            const item = new ClipboardItem({ 'image/png': blob });
+            navigator.clipboard.write([item]).then(() => {
+              setToast({ show: true, message: 'คัดลอกรูปภาพลง Clipboard สำเร็จ' });
+              setTimeout(() => setToast({ show: false, message: '' }), 2000);
+            }).catch(err => {
+              console.error('Failed to copy image: ', err);
+              setToast({ show: true, message: 'ไม่สามารถคัดลอกรูปภาพได้' });
+              setTimeout(() => setToast({ show: false, message: '' }), 2000);
+            });
+          } catch (e) {
+            console.error('ClipboardItem not supported or error: ', e);
+            setToast({ show: true, message: 'เบราว์เซอร์ของคุณไม่สนับสนุนการคัดลอกรูปภาพโดยตรง' });
+            setTimeout(() => setToast({ show: false, message: '' }), 2000);
+          }
+          // Restore buttons
+          buttons.forEach(btn => btn.style.display = 'flex');
+        }, 'image/png');
       });
     }
   };
@@ -261,6 +296,15 @@ export const Charts = ({ data }) => {
           >
             <div style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', display: 'flex', gap: '0.4rem' }} className="no-capture">
               <button 
+                onClick={handleCopy}
+                title="Copy Image"
+                style={{ background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: '50%', cursor: 'pointer', color: 'var(--text-secondary)', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
+                onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
+              >
+                <Copy size={14} />
+              </button>
+              <button 
                 onClick={handleCapture}
                 title="Capture Screenshot"
                 style={{ background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: '50%', cursor: 'pointer', color: 'var(--text-secondary)', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
@@ -329,6 +373,31 @@ export const Charts = ({ data }) => {
               <span style={{ fontWeight: '800', fontSize: '1.1rem', color: 'var(--accent-primary)' }}>{formatCurrency(popupData.rowData.totalTrend)}</span>
             </div>
           </div>
+        </div>
+      )}
+      {toast.show && (
+        <div 
+          style={{ 
+            position: 'fixed', 
+            bottom: '2rem', 
+            left: '50%', 
+            transform: 'translateX(-50%)', 
+            backgroundColor: '#15803d', 
+            color: 'white', 
+            padding: '0.6rem 1.2rem', 
+            borderRadius: 'var(--radius-full)', 
+            boxShadow: 'var(--shadow-xl)', 
+            zIndex: 100000, 
+            fontSize: '0.9rem',
+            fontWeight: '600',
+            animation: 'scaleIn 0.2s ease-out',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}
+        >
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4ade80' }}></span>
+          {toast.message}
         </div>
       )}
     </>
