@@ -67,7 +67,68 @@ export const CentralMoneyView = () => {
       filtered = filtered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
     }
     
-    return processCentralMoneyData(filtered, selectedYear);
+    const processed = processCentralMoneyData(filtered, selectedYear);
+
+    // Calculate growth
+    let currentYearStr, prevYearStr;
+    if (selectedYear === 'All') {
+      const maxYear = Math.max(...rawData.map(item => Number(item.source_year)).filter(y => !isNaN(y)));
+      const currentYear = maxYear > 0 ? maxYear : new Date().getFullYear();
+      currentYearStr = String(currentYear);
+      prevYearStr = String(currentYear - 1);
+    } else {
+      currentYearStr = selectedYear;
+      prevYearStr = String(parseInt(selectedYear) - 1);
+    }
+
+    const currentYearData = rawData.filter(item => String(item.source_year || 'ไม่ระบุ') === currentYearStr);
+    const prevYearData = rawData.filter(item => String(item.source_year || 'ไม่ระบุ') === prevYearStr);
+
+    let currentFiltered = currentYearData;
+    let prevFiltered = prevYearData;
+
+    if (selectedMember !== 'All') {
+      currentFiltered = currentFiltered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
+      prevFiltered = prevFiltered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
+    }
+
+    const calculateTotals = (data) => {
+      return data.reduce((acc, item) => {
+        acc.called += Number(item['ยอดเรียก (฿)']) || 0;
+        acc.collected += Number(item['ยอดเก็บ (฿)']) || 0;
+        acc.outstanding += Number(item['ยอดค้าง (฿)']) || 0;
+        acc.withdrawn += Number(item['ยอดเบิกเงิน (฿)']) || 0;
+        acc.borrowed += Number(item['ยอดยืมเงิน (฿)']) || 0;
+        acc.returned += Number(item['ยอดคืนเงิน (฿)']) || 0;
+        acc.outstandingReturn += Number(item['ยอดค้างคืน (฿)']) || 0;
+        return acc;
+      }, { called: 0, collected: 0, outstanding: 0, withdrawn: 0, borrowed: 0, returned: 0, outstandingReturn: 0 });
+    };
+
+    const currentTotals = calculateTotals(currentFiltered);
+    const prevTotals = calculateTotals(prevFiltered);
+
+    const calculateGrowth = (current, previous) => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return ((current - previous) / previous) * 100;
+    };
+
+    const calculateBalance = (t) => (t.collected + t.returned) - (t.withdrawn + t.borrowed);
+    const currentBalance = calculateBalance(currentTotals);
+    const prevBalance = calculateBalance(prevTotals);
+
+    processed.growth = {
+      called: calculateGrowth(currentTotals.called, prevTotals.called),
+      collected: calculateGrowth(currentTotals.collected, prevTotals.collected),
+      outstanding: calculateGrowth(currentTotals.outstanding, prevTotals.outstanding),
+      withdrawn: calculateGrowth(currentTotals.withdrawn, prevTotals.withdrawn),
+      borrowed: calculateGrowth(currentTotals.borrowed, prevTotals.borrowed),
+      returned: calculateGrowth(currentTotals.returned, prevTotals.returned),
+      outstandingReturn: calculateGrowth(currentTotals.outstandingReturn, prevTotals.outstandingReturn),
+      balance: calculateGrowth(currentBalance, prevBalance)
+    };
+
+    return processed;
   }, [rawData, selectedYear, selectedMember]);
 
   if (loading) {

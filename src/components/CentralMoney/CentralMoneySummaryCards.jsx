@@ -2,7 +2,32 @@ import React from 'react';
 import { formatCurrency } from '../../utils/dataProcessor';
 import { Wallet, TrendingUp, AlertCircle, Banknote, CreditCard, PiggyBank, ArrowDownCircle, ArrowUpCircle } from 'lucide-react';
 
-export const CentralMoneySummaryCards = ({ totals }) => {
+export const CentralMoneySummaryCards = ({ totals, growth }) => {
+  const renderGrowth = (value) => {
+    if (value === undefined || value === null) return null;
+    const isPositive = value > 0;
+    const isNegative = value < 0;
+    let color = '#94a3b8';
+    let icon = null;
+    
+    if (isPositive) {
+      color = '#16a34a';
+      icon = '▲';
+    } else if (isNegative) {
+      color = '#dc2626';
+      icon = '▼';
+    } else {
+      color = '#64748b';
+      icon = '-';
+    }
+
+    return (
+      <div style={{ fontSize: '0.75rem', fontWeight: '500', color, display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.25rem' }}>
+        {icon} {isPositive ? '+' : ''}{value.toFixed(2)}%
+      </div>
+    );
+  };
+
   const balance = (totals.collected + totals.returned) - (totals.withdrawn + totals.borrowed);
 
   return (
@@ -18,6 +43,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(balance)}
         </div>
+        {growth && renderGrowth(growth.balance)}
       </div>
 
       {/* ยอดเรียกทั้งหมด (Total Called) */}
@@ -31,6 +57,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(totals.called)}
         </div>
+        {growth && renderGrowth(growth.called)}
       </div>
 
       {/* ยอดเก็บทั้งหมด (Total Collected) */}
@@ -44,6 +71,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#15803d' }}>
           {formatCurrency(totals.collected)}
         </div>
+        {growth && renderGrowth(growth.collected)}
       </div>
 
       {/* ยอดค้างทั้งหมด (Total Outstanding) */}
@@ -61,6 +89,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstanding === 0 ? '#94a3b8' : '#dc2626' }}>
           {formatCurrency(totals.outstanding)}
         </div>
+        {growth && renderGrowth(growth.outstanding)}
       </div>
 
 
@@ -75,6 +104,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1d4ed8' }}>
           {formatCurrency(totals.borrowed)}
         </div>
+        {growth && renderGrowth(growth.borrowed)}
       </div>
       
       {/* ยอดคืนเงินทั้งหมด (Total Returned) */}
@@ -88,6 +118,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#0e7490' }}>
           {formatCurrency(totals.returned)}
         </div>
+        {growth && renderGrowth(growth.returned)}
       </div>
 
       {/* ยอดค้างคืนทั้งหมด (Total Outstanding Return) */}
@@ -105,6 +136,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingReturn === 0 ? '#94a3b8' : '#ea580c' }}>
           {formatCurrency(totals.outstandingReturn)}
         </div>
+        {growth && renderGrowth(growth.outstandingReturn)}
       </div>
 
       {/* ยอดเบิกเงินทั้งหมด (Total Withdrawn) */}
@@ -122,6 +154,7 @@ export const CentralMoneySummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#6d28d9' }}>
           {formatCurrency(totals.withdrawn)}
         </div>
+        {growth && renderGrowth(growth.withdrawn)}
       </div>
 
     </div>

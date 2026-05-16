@@ -2,7 +2,32 @@ import React from 'react';
 import { formatCurrency } from '../utils/dataProcessor';
 import { Wallet, TrendingUp, AlertCircle, Banknote, CreditCard, PiggyBank } from 'lucide-react';
 
-export const SummaryCards = ({ totals }) => {
+export const SummaryCards = ({ totals, growth }) => {
+  const renderGrowth = (value) => {
+    if (value === undefined || value === null) return null;
+    const isPositive = value > 0;
+    const isNegative = value < 0;
+    let color = '#94a3b8';
+    let icon = null;
+    
+    if (isPositive) {
+      color = '#16a34a';
+      icon = '▲';
+    } else if (isNegative) {
+      color = '#dc2626';
+      icon = '▼';
+    } else {
+      color = '#64748b';
+      icon = '-';
+    }
+
+    return (
+      <div style={{ fontSize: '0.75rem', fontWeight: '500', color, display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.25rem' }}>
+        {icon} {isPositive ? '+' : ''}{value.toFixed(2)}%
+      </div>
+    );
+  };
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-md" style={{ marginBottom: 'var(--spacing-lg)' }}>
       {/* ต้นทุนรวม (Total Cost) */}
@@ -16,6 +41,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#db2777' }}>
           {formatCurrency(totals.cost)}
         </div>
+        {growth && renderGrowth(growth.cost)}
       </div>
 
       {/* ยอดจ่ายรวม (Total Paid) */}
@@ -29,6 +55,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#15803d' }}>
           {formatCurrency(totals.paid)}
         </div>
+        {growth && renderGrowth(growth.paid)}
       </div>
 
       {/* ค้างจ่ายรวม (Total Outstanding Pay) */}
@@ -46,6 +73,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingPay === 0 ? '#94a3b8' : '#dc2626' }}>
           {formatCurrency(totals.outstandingPay)}
         </div>
+        {growth && renderGrowth(growth.outstandingPay)}
       </div>
 
       {/* รายได้รวม (Total Income) */}
@@ -59,6 +87,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#1d4ed8' }}>
           {formatCurrency(totals.income)}
         </div>
+        {growth && renderGrowth(growth.income)}
       </div>
       
       {/* ยอดรับรวม (Total Received) */}
@@ -72,6 +101,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: '#0e7490' }}>
           {formatCurrency(totals.received)}
         </div>
+        {growth && renderGrowth(growth.received)}
       </div>
       
       {/* ค้างรับรวม (Total Outstanding Receive) */}
@@ -89,6 +119,7 @@ export const SummaryCards = ({ totals }) => {
         <div style={{ fontSize: '1.125rem', fontWeight: '700', color: totals.outstandingReceive === 0 ? '#94a3b8' : '#ea580c' }}>
           {formatCurrency(totals.outstandingReceive)}
         </div>
+        {growth && renderGrowth(growth.outstandingReceive)}
       </div>
 
     </div>

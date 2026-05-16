@@ -6,7 +6,7 @@ import { Camera, Copy } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
 export const Dashboard = ({ data, availableYears, selectedYear, onYearChange, availableMembers, selectedMember, onMemberChange }) => {
-  const { totals, members } = data;
+  const { totals, members, growth } = data;
   const summaryAreaRef = useRef(null);
   const [toast, setToast] = useState({ show: false, message: '' });
 
@@ -158,7 +158,7 @@ export const Dashboard = ({ data, availableYears, selectedYear, onYearChange, av
         </div>
       </header>
 
-        <SummaryCards totals={totals} />
+        <SummaryCards totals={totals} growth={growth} />
       </div>
       
       {toast.show && (

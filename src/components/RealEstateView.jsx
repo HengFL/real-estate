@@ -67,7 +67,61 @@ export const RealEstateView = () => {
       filtered = filtered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
     }
     
-    return processDashboardData(filtered, selectedYear);
+    const processed = processDashboardData(filtered, selectedYear);
+
+    // Calculate growth
+    let currentYearStr, prevYearStr;
+    if (selectedYear === 'All') {
+      const maxYear = Math.max(...rawData.map(item => Number(item.source_year)).filter(y => !isNaN(y)));
+      const currentYear = maxYear > 0 ? maxYear : new Date().getFullYear();
+      currentYearStr = String(currentYear);
+      prevYearStr = String(currentYear - 1);
+    } else {
+      currentYearStr = selectedYear;
+      prevYearStr = String(parseInt(selectedYear) - 1);
+    }
+
+    const currentYearData = rawData.filter(item => String(item.source_year || 'ไม่ระบุ') === currentYearStr);
+    const prevYearData = rawData.filter(item => String(item.source_year || 'ไม่ระบุ') === prevYearStr);
+
+    let currentFiltered = currentYearData;
+    let prevFiltered = prevYearData;
+
+    if (selectedMember !== 'All') {
+      currentFiltered = currentFiltered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
+      prevFiltered = prevFiltered.filter(item => (item['สมาชิก'] ? String(item['สมาชิก']).trim() : '') === selectedMember);
+    }
+
+    const calculateTotals = (data) => {
+      return data.reduce((acc, item) => {
+        acc.cost += Number(item['ต้นทุน (฿)']) || 0;
+        acc.paid += Number(item['ยอดจ่าย (฿)']) || 0;
+        acc.outstandingPay += Number(item['ค้างจ่าย (฿)']) || 0;
+        acc.income += Number(item['รายได้ (฿)']) || 0;
+        acc.received += Number(item['ยอดรับ (฿)']) || 0;
+        acc.outstandingReceive += Number(item['ค้างรับ (฿)']) || 0;
+        return acc;
+      }, { cost: 0, paid: 0, outstandingPay: 0, income: 0, received: 0, outstandingReceive: 0 });
+    };
+
+    const currentTotals = calculateTotals(currentFiltered);
+    const prevTotals = calculateTotals(prevFiltered);
+
+    const calculateGrowth = (current, previous) => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return ((current - previous) / previous) * 100;
+    };
+
+    processed.growth = {
+      cost: calculateGrowth(currentTotals.cost, prevTotals.cost),
+      paid: calculateGrowth(currentTotals.paid, prevTotals.paid),
+      outstandingPay: calculateGrowth(currentTotals.outstandingPay, prevTotals.outstandingPay),
+      income: calculateGrowth(currentTotals.income, prevTotals.income),
+      received: calculateGrowth(currentTotals.received, prevTotals.received),
+      outstandingReceive: calculateGrowth(currentTotals.outstandingReceive, prevTotals.outstandingReceive)
+    };
+
+    return processed;
   }, [rawData, selectedYear, selectedMember]);
 
   if (loading) {
