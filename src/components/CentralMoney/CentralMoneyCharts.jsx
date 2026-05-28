@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import html2canvas from 'html2canvas';
-import { Camera, Copy } from 'lucide-react';
 import { formatCurrency } from '../../utils/dataProcessor';
 
 export const CentralMoneyCharts = ({ data }) => {
@@ -196,9 +195,9 @@ export const CentralMoneyCharts = ({ data }) => {
 
   return (
     <>
-    <div className="bg-card animate-fade-in" style={{ position: 'relative', zIndex: 50, animationDelay: '0.6s', marginTop: 'var(--spacing-xl)', marginBottom: 'var(--spacing-xl)', padding: 'var(--spacing-lg)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-lg)', flexWrap: 'wrap', gap: '1rem' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', margin: 0, color: 'var(--text-primary)' }}>กราฟภาพรวม (Combo Chart)</h2>
+    <div className="bg-card animate-fade-in" style={{ position: 'relative', zIndex: 50, animationDelay: '0.6s', marginTop: '0', marginBottom: 'var(--spacing-xl)', padding: 'var(--spacing-lg)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-md)', flexWrap: 'wrap', gap: '1rem' }}>
+        <h2 style={{ fontSize: '0.875rem', fontWeight: '600', margin: 0, color: 'var(--text-secondary)' }}>ตัวชี้วัดแนวโน้ม</h2>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-main)', padding: '0.4rem 0.75rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-color)' }}>
           <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>เส้นแนวโน้ม:</span>
           <select 
@@ -225,7 +224,7 @@ export const CentralMoneyCharts = ({ data }) => {
           </select>
         </div>
       </div>
-      <div style={{ height: '400px', width: '100%' }}>
+      <div style={{ height: '320px', width: '100%' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={chartData}
@@ -302,7 +301,7 @@ export const CentralMoneyCharts = ({ data }) => {
                 onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
               >
-                <Copy size={14} />
+                <i className="fa-regular fa-copy" style={{ fontSize: '14px' }}></i>
               </button>
               <button 
                 onClick={handleCapture}
@@ -311,7 +310,7 @@ export const CentralMoneyCharts = ({ data }) => {
                 onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
                 onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
               >
-                <Camera size={14} />
+                <i className="fa-solid fa-camera" style={{ fontSize: '14px' }}></i>
               </button>
               <button 
                 onClick={() => setPopupData(null)}
@@ -324,7 +323,7 @@ export const CentralMoneyCharts = ({ data }) => {
             </div>
             
             <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', marginBottom: '0.5rem', paddingRight: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#15803d', marginBottom: '0.1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>CENTRAL MONEY (เงินกลาง)</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#15803d', marginBottom: '0.1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>CENTRAL MONEY (เงินกลาง)</h3>
               <div style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', fontWeight: '500' }}>
                 ข้อมูลประจำ: <span style={{ color: 'var(--accent-primary)', fontWeight: '600' }}>{popupData.label}</span>
               </div>

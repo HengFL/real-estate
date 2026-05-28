@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { processCentralMoneyData } from '../utils/centralMoneyDataProcessor';
 import { CentralMoneyDashboard } from './CentralMoney/CentralMoneyDashboard';
-import { Loader2, AlertCircle } from 'lucide-react';
+
 
 const CENTRAL_API_URL = 'https://script.google.com/macros/s/AKfycbxTd6QCvaTFiNSjbVicZKb_8bAw3VCjOOMwPlUtZ8hKmdllFcb30D5Azi0Iqj_XMpY/exec';
 
@@ -12,26 +12,26 @@ export const CentralMoneyView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(CENTRAL_API_URL);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        
-        setRawData(data);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError('ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(CENTRAL_API_URL);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
+      const data = await response.json();
+      
+      setRawData(data);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError('ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -134,7 +134,7 @@ export const CentralMoneyView = () => {
   if (loading) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '1rem' }}>
-        <Loader2 size={48} className="text-primary" style={{ animation: 'spin 1s linear infinite' }} />
+        <i className="fa-solid fa-spinner fa-spin text-primary" style={{ fontSize: '48px' }}></i>
         <p style={{ color: 'var(--text-secondary)' }}>กำลังโหลดข้อมูล...</p>
       </div>
     );
@@ -144,7 +144,7 @@ export const CentralMoneyView = () => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', gap: '1rem' }}>
         <div style={{ padding: '1rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderRadius: 'var(--radius-full)' }}>
-          <AlertCircle size={48} className="text-danger" />
+          <i className="fa-solid fa-circle-exclamation text-danger" style={{ fontSize: '48px' }}></i>
         </div>
         <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>เกิดข้อผิดพลาด</h2>
         <p style={{ color: 'var(--text-secondary)' }}>{error}</p>
@@ -178,6 +178,7 @@ export const CentralMoneyView = () => {
           availableMembers={availableMembers}
           selectedMember={selectedMember}
           onMemberChange={setSelectedMember}
+          onRefresh={fetchData}
         />
       )}
     </div>

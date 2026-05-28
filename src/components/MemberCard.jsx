@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatCurrency } from '../utils/dataProcessor';
-import { User, CheckCircle, AlertTriangle, HelpCircle } from 'lucide-react';
+
 
 export const MemberCard = ({ member, index }) => {
   const { name, totals, statuses } = member;
@@ -15,13 +15,13 @@ export const MemberCard = ({ member, index }) => {
   };
 
   return (
-    <div className="bg-card animate-fade-in" style={{ animationDelay: `${0.1 * (index + 1)}s`, marginBottom: 'var(--spacing-md)' }}>
-      <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center" style={{ marginBottom: 'var(--spacing-md)', paddingBottom: 'var(--spacing-sm)', borderBottom: '1px solid var(--border-color)', gap: 'var(--spacing-sm)' }}>
+    <div className="bg-card animate-fade-in" style={{ animationDelay: `${0.1 * (index + 1)}s`, marginBottom: 'var(--spacing-md)', padding: 'var(--spacing-lg)' }}>
+      <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center" style={{ marginBottom: 'var(--spacing-sm)', paddingBottom: 'var(--spacing-sm)', borderBottom: '1px solid var(--border-color)', gap: 'var(--spacing-sm)' }}>
         <div className="flex items-center gap-sm">
-          <div style={{ padding: '0.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-full)' }}>
-            <User size={20} style={{ color: 'var(--text-primary)' }} />
+          <div style={{ padding: '0.35rem', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-full)' }}>
+            <i className="fa-solid fa-user" style={{ fontSize: '16px', color: 'var(--text-primary)' }}></i>
           </div>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--text-primary)' }}>{name}</h2>
+          <h2 style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-primary)' }}>{name}</h2>
         </div>
 
       </div>

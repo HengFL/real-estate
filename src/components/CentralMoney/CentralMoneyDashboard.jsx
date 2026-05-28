@@ -2,10 +2,9 @@ import React, { useRef, useState } from 'react';
 import { CentralMoneySummaryCards } from './CentralMoneySummaryCards';
 import { CentralMoneyMemberCard } from './CentralMoneyMemberCard';
 import { CentralMoneyCharts } from './CentralMoneyCharts';
-import { Camera, Copy } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
-export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYearChange, availableMembers, selectedMember, onMemberChange }) => {
+export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYearChange, availableMembers, selectedMember, onMemberChange, onRefresh }) => {
   const { totals, members, growth } = data;
   const summaryAreaRef = useRef(null);
   const [toast, setToast] = useState({ show: false, message: '' });
@@ -80,7 +79,7 @@ export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYe
 
   return (
     <div style={{ padding: 'var(--spacing-md) 0', maxWidth: '1200px', margin: '0 auto' }}>
-      <div ref={summaryAreaRef} style={{ position: 'relative', marginBottom: 'var(--spacing-md)' }}>
+      <div ref={summaryAreaRef} style={{ position: 'relative', marginBottom: 'var(--spacing-xl)' }}>
         <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', display: 'flex', gap: '0.4rem' }} className="no-capture">
           <button 
             onClick={handleCopy}
@@ -89,7 +88,7 @@ export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYe
             onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
             onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
           >
-            <Copy size={14} />
+            <i className="fa-regular fa-copy" style={{ fontSize: '14px' }}></i>
           </button>
           <button 
             onClick={handleCapture}
@@ -98,12 +97,21 @@ export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYe
             onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
             onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
           >
-            <Camera size={14} />
+            <i className="fa-solid fa-camera" style={{ fontSize: '14px' }}></i>
+          </button>
+          <button 
+            onClick={onRefresh}
+            title="รีเฟรชใหม่"
+            style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '50%', cursor: 'pointer', color: 'var(--text-secondary)', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}
+            onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; e.currentTarget.style.borderColor = 'var(--accent-primary)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'var(--border-color)'; }}
+          >
+            <i className="fa-solid fa-arrows-rotate" style={{ fontSize: '14px' }}></i>
           </button>
         </div>
 
         <header style={{ marginBottom: 'var(--spacing-md)', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: 'var(--spacing-sm)', color: '#15803d', display: 'inline-block' }}>
+        <h1 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: 'var(--spacing-md)', color: '#15803d', display: 'inline-block' }}>
           CENTRAL MONEY (เงินกลาง)
         </h1>
         
@@ -158,6 +166,10 @@ export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYe
         </div>
       </header>
 
+        <h2 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: 'var(--spacing-sm)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+          <i className="fa-solid fa-chart-pie" style={{ color: 'var(--accent-secondary)', fontSize: '0.9rem' }}></i>
+          ภาพรวมข้อมูลยอดเงิน
+        </h2>
         <CentralMoneySummaryCards totals={totals} growth={growth} />
       </div>
       
@@ -187,11 +199,16 @@ export const CentralMoneyDashboard = ({ data, availableYears, selectedYear, onYe
         </div>
       )}
       
+      <h2 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: 'var(--spacing-sm)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.35rem', marginTop: 'var(--spacing-xl)' }}>
+        <i className="fa-solid fa-chart-line" style={{ color: 'var(--accent-secondary)', fontSize: '0.9rem' }}></i>
+        กราฟภาพรวมแนวโน้ม
+      </h2>
       <CentralMoneyCharts data={data} />
 
-      <div>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: 'var(--spacing-md)', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
-          รายละเอียดสมาชิก
+      <div style={{ marginTop: 'var(--spacing-xl)' }}>
+        <h2 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: 'var(--spacing-md)', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
+          <i className="fa-solid fa-user-group" style={{ color: 'var(--accent-secondary)', fontSize: '0.9rem' }}></i>
+          รายการสมาชิก
           <span style={{ fontSize: '0.875rem', fontWeight: 'normal', backgroundColor: 'var(--bg-hover)', padding: '0.2rem 0.6rem', borderRadius: 'var(--radius-full)', color: 'var(--text-secondary)' }}>
             {members.filter(m => m.name !== 'ตัวแทน').length} ท่าน
           </span>
